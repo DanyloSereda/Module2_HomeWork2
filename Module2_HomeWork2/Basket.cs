@@ -14,7 +14,6 @@
 
     public void SelectAndAddItems()
     {
-        // Выбор и добавление товаров в корзину до заполнения
         while (GetTotalItemCount() < 10)
         {
             Console.WriteLine("\nEnter the items you want to add to the basket (for example Bananas 2, Apples 3):");
@@ -23,7 +22,7 @@
             string[] items = input.Split(',');
 
             int totalAdded = 0;
-            string[] lastItemName = null;
+            string lastItemName = null;
             int lastItemQuantity = 0;
 
             foreach (string item in items)
@@ -39,9 +38,9 @@
 
                         if (totalAdded + quantity > 10)
                         {
-                            lastItemName = _store.GetStoreItems();
+                            lastItemName = parts[0];
                             lastItemQuantity = remainingSpace;
-                            Console.WriteLine($"Added only {lastItemQuantity} {lastItemName[index]} to the basket. Basket is full.");
+                            Console.WriteLine($"Added only {lastItemQuantity} {lastItemName} to the basket. Basket is full.");
                             break;
                         }
 
@@ -62,7 +61,7 @@
 
             if (lastItemName != null && lastItemQuantity > 0)
             {
-                int lastItemIndex = GetItemIndex(lastItemName[lastItemName.Length - 1]);
+                int lastItemIndex = GetItemIndex(lastItemName);
                 AddItem(lastItemIndex, lastItemQuantity);
                 _store.SellItem(lastItemIndex, lastItemQuantity);
             }
